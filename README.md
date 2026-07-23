@@ -47,6 +47,12 @@ Use these pre-seeded accounts to log in and evaluate both roles:
 
 | Role   | Email                | Password       |
 |--------|----------------------|----------------|
+<<<<<<< HEAD
 | Admin  | admin@example.com    | admin@123      |
 | Member | rahul@kanban.com     | rahul@123     |
 | Member | sumit@kanban.com     | sumit@123     |
+=======
+| Admin  | admin@example.com    | Admin@123      |
+| Member | rahul@kanban.com     | Member@123     |
+| Member | sumit@kanban.com     | Member@123     |
+>>>>>>> 10c8e897d7f1d597e6a781c9078bd2d468334edf
