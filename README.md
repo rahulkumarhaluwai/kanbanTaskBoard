@@ -28,8 +28,8 @@ A responsive Kanban-style task board built with **Next.js (App Router)**, featur
 ### Clone & install
 
 ```bash
-git clone <your-repo-url>
-cd <repo-name>
+git clone <https://github.com/rahulkumarhaluwai/kanbanTaskBoard>
+cd <kanbanTaskBoard>
 npm install
 ```
 
@@ -50,5 +50,3 @@ Use these pre-seeded accounts to log in and evaluate both roles:
 | Admin  | admin@example.com    | Admin@123      |
 | Member | rahul@kanban.com     | Member@123     |
 | Member | sumit@kanban.com     | Member@123     |
-
-> Update this table to match whatever your seed script actually creates.
