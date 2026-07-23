@@ -28,8 +28,8 @@ A responsive Kanban-style task board built with **Next.js (App Router)**, featur
 ### Clone & install
 
 ```bash
-git clone <https://github.com/rahulkumarhaluwai/kanbanTaskBoard>
-cd <kanbanTaskBoard>
+git clone https://github.com/rahulkumarhaluwai/kanbanTaskBoard
+cd kanbanTaskBoard
 npm install
 ```
 
