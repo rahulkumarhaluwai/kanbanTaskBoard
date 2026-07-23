@@ -8,12 +8,23 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter });
 
-async function main() {
-  const adminPassword = await bcrypt.hash("admin123", 10);
-  const memberPassword = await bcrypt.hash("member123", 10);
+const SALT_ROUNDS = 10;
 
-  const admin = await prisma.user.create({
-    data: {
+async function hash(password: string) {
+  return bcrypt.hash(password, SALT_ROUNDS);
+}
+
+async function main() {
+  const [adminPassword, rahulPassword, sumitPassword] = await Promise.all([
+    hash(process.env.SEED_ADMIN_PASSWORD ?? "admin123"),
+    hash(process.env.SEED_RAHUL_PASSWORD ?? "rahul123"),
+    hash(process.env.SEED_SUMIT_PASSWORD ?? "sumit123"),
+  ]);
+
+  const admin = await prisma.user.upsert({
+    where: { email: "admin@example.com" },
+    update: {},
+    create: {
       name: "Admin User",
       email: "admin@example.com",
       password: adminPassword,
@@ -21,53 +32,66 @@ async function main() {
     },
   });
 
-  const member1 = await prisma.user.create({
-    data: {
+  const member1 = await prisma.user.upsert({
+    where: { email: "rahul@kanban.com" },
+    update: {},
+    create: {
       name: "rahul",
       email: "rahul@kanban.com",
-      password: memberPassword,
+      password: rahulPassword,
       role: "MEMBER",
     },
   });
 
-  const member2 = await prisma.user.create({
-    data: {
+  const member2 = await prisma.user.upsert({
+    where: { email: "sumit@kanban.com" },
+    update: {},
+    create: {
       name: "sumit",
       email: "sumit@kanban.com",
-      password: memberPassword,
+      password: sumitPassword,
       role: "MEMBER",
     },
   });
 
-  await prisma.task.createMany({
-    data: [
-      {
-        title: "Set up project",
-        description: "Initialize the Kanban project",
-        status: "DONE",
-        assignedToId: member1.id,
-      },
-      {
-        title: "Build Kanban board",
-        description: "Create the main task board UI",
-        status: "IN_PROGRESS",
-        assignedToId: member2.id,
-      },
-      {
-        title: "Add authentication",
-        description: "Implement user login",
-        status: "TODO",
-        assignedToId: member1.id,
-      },
-    ],
-  });
+  const existingTaskCount = await prisma.task.count();
+
+  if (existingTaskCount === 0) {
+    await prisma.task.createMany({
+      data: [
+        {
+          title: "Set up project",
+          description: "Initialize the Kanban project",
+          status: "DONE",
+          assignedToId: member1.id,
+        },
+        {
+          title: "Build Kanban board",
+          description: "Create the main task board UI",
+          status: "IN_PROGRESS",
+          assignedToId: member2.id,
+        },
+        {
+          title: "Add authentication",
+          description: "Implement user login",
+          status: "TODO",
+          assignedToId: member1.id,
+        },
+      ],
+    });
+    console.log("Tasks seeded.");
+  } else {
+    console.log("Tasks already exist, skipping task seed.");
+  }
 
   console.log("Database seeded successfully!");
+  console.log(`Admin: admin@example.com`);
+  console.log(`Members: rahul@kanban.com, sumit@kanban.com`);
 }
 
 main()
   .catch((error) => {
-    console.error(error);
+    console.error("Seed failed:", error);
     process.exit(1);
   })
   .finally(async () => {

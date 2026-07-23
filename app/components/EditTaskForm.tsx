@@ -66,7 +66,6 @@ export default function EditTaskForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Title */}
       <div className="space-y-2">
         <label
           htmlFor="title"
@@ -83,8 +82,6 @@ export default function EditTaskForm({
           className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10"
         />
       </div>
-
-      {/* Description */}
       <div className="space-y-2">
         <label
           htmlFor="description"
@@ -101,8 +98,6 @@ export default function EditTaskForm({
           className="w-full resize-none rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10"
         />
       </div>
-
-      {/* Assignee */}
       {isAdmin && (
         <div className="space-y-2">
           <label
@@ -128,8 +123,6 @@ export default function EditTaskForm({
           </select>
         </div>
       )}
-
-      {/* Buttons */}
       <div className="flex justify-end gap-3 pt-2">
         <button
           type="button"
