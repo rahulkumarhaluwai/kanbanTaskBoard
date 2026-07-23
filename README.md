@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kanban Task Board
 
-## Getting Started
+A responsive Kanban-style task board built with **Next.js (App Router)**, featuring credential-based authentication and server-enforced role-based access control (RBAC).
 
-First, run the development server:
+---
+
+## Tech Stack
+
+- **Framework:** Next.js
+- **Database:** PostgreSQL
+- **ORM:** Prisma
+- **Auth:** NextAuth.js
+- **Styling:** Tailwind CSS
+
+---
+
+## Features
+
+- **Kanban board** with "To Do", "In Progress", and "Done" columns
+- **Drag-and-drop / status update** to move tasks between columns
+- **Authentication** via email + password login form
+- **Role-based access control**, enforced on the server:
+  - **Admin:** full CRUD — create, edit, reassign, update status, and delete any task
+  - **Member:** can view the board and update the status of tasks assigned to them only; cannot create, reassign, or delete tasks
+
+---
+
+### Clone & install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd <repo-name>
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Seed the database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Seeds 1 admin, 2+ members, and a set of starter tasks assigned across users:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx prisma db seed
+```
 
-## Learn More
+## Test Credentials
 
-To learn more about Next.js, take a look at the following resources:
+Use these pre-seeded accounts to log in and evaluate both roles:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Role   | Email                | Password       |
+|--------|----------------------|----------------|
+| Admin  | admin@example.com    | Admin@123      |
+| Member | rahul@kanban.com     | Member@123     |
+| Member | sumit@kanban.com     | Member@123     |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Update this table to match whatever your seed script actually creates.
