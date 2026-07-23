@@ -38,6 +38,7 @@ npm install
 Seeds 1 admin, 2+ members, and a set of starter tasks assigned across users:
 
 ```bash
+npx prisma migrate reset
 npx prisma db seed
 ```
 
@@ -47,7 +48,6 @@ Use these pre-seeded accounts to log in and evaluate both roles:
 
 | Role   | Email                | Password       |
 |--------|----------------------|----------------|
-<<<<<<< HEAD
 | Admin  | admin@example.com    | admin@123      |
 | Member | rahul@kanban.com     | rahul@123      |
 | Member | sumit@kanban.com     | sumit@123      |
